@@ -6,7 +6,7 @@ const functions = require("./functions.js"); // useful functions
 const random_artists = require("./random_artists.json"); // random artist names
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
     res.send(
