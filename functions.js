@@ -1,4 +1,3 @@
-const fs = require("fs");
 
 module.exports.filterData = (results) => {
     var artists = [];
