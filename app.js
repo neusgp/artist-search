@@ -6,7 +6,7 @@ const functions = require("./functions.js"); // useful functions
 const random_artists = require("./random_artists.json"); // random artist names
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
     res.send(
@@ -46,6 +46,6 @@ app.get("/api/:artist/:filename", (req, res) => {
         });
 });
 
-app.listen(port, () => {
-    console.log(`running on port ${port}`);
+app.listen(PORT, () => {
+    console.log(`running on port ${PORT}`);
 });
