@@ -10,14 +10,14 @@ const port = 3000;
 
 app.get("/", (req, res) => {
     res.send(
-        '<html><p>To download the CSV file, add the following query to the URL: /"artist"/"filename"</p><p>Example: .../madonna/madonna_list</p></html>'
+        '<html><p>To download the CSV file, add the following query to the URL: api/"artist"/"filename"</p><p>Example: ...api/madonna/madonna_list</p></html>'
     );
 });
 
 //This is the REST Api that the client side can call in order to obtain the CSV file with the results.
 //The route contains two params: :artist => artist name || :filename => the user-supplied file name.
 
-app.get("/:artist/:filename", (req, res) => {
+app.get("/api/:artist/:filename", (req, res) => {
     const { artist, filename } = req.params;
 
     //Now we fetch the Last.fm API using the :artist parameter and the imported API_KEY. I decided to limit the number of results to 20.
@@ -30,7 +30,7 @@ app.get("/:artist/:filename", (req, res) => {
             if (data) {
                 //If there are results, we write them in a CSV file and send everything to the user:
                 let results = data.results.artistmatches.artist; //accessing the object values
-                const artists = functions.filterData(results); // filtering the retrieved data
+                const artists = functions.filterData(results);// filtering the retrieved data
                 const csv = functions.createCSV(artists); //building a string in CSV format
                 res.attachment(`${filename}.csv`).send(csv); // sending the CSV file to the user (download)
                 return;

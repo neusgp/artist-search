@@ -1,4 +1,3 @@
-
 module.exports.filterData = (results) => {
     var artists = [];
     for (i = 0; i < results.length; i++) {
@@ -6,37 +5,17 @@ module.exports.filterData = (results) => {
             results[i].name,
             results[i].mbid,
             results[i].url,
-            /*  results[i].image, */
+            results[i].image[0]["#text"],
+            results[i].image[1]["#text"],
         ]);
     }
     return artists;
 };
 
 module.exports.createCSV = (data) => {
-    var csv = "name,mbid,url\r\n";
+    var csv = "name,mbid,url,image_small,image\r\n";
     for (let i of data) {
         csv += i.join(",") + "\r\n";
     }
     return csv;
 };
-
-/* module.exports.deleteFile = (file) => {
-    setTimeout(() => {
-        fs.unlink(file, (err) => {
-            if (err) {
-                console.log("err", err);
-            }
-            console.log("file deleted");
-        });
-    }, 5000);
-};
-
-module.exports.writeFile = (filename, csv) => {
-    fs.writeFile(`${filename}.csv`, csv, (err) => {
-        if (err) {
-            return console.log("error", err);
-        }
-        console.log("file created");
-    });
-};
- */
