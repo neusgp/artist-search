@@ -16,5 +16,5 @@ To build this app i used...
 
 -   Open the app in the browser.
 -   To download the CSV file, add "/api" to the URL, and then the artist name and your desired filename:
-    Example: .../api/madonna/madona_list
+    Example: .../api/madonna/madonna_list
 -   Press enter and the CSV file will download.
