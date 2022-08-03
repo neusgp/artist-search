@@ -31,19 +31,29 @@ app.get("/api/:artist/:filename", (req, res) => {
         .then((data) => {
             if (data.results.artistmatches.artist[0]) {
                 //If there are results, we write them in a CSV file and send everything to the user:
-                const artists = functions.filterData(
-                    data.results.artistmatches.artist
-                ); // filtering the retrieved data
-                const csv = functions.createCSV(artists); //building a string in CSV format
+                let csv = functions.getCSV(data.results.artistmatches.artist);
                 res.attachment(`${filename}.csv`).send(csv); // sending the CSV file to the user (download)
                 console.log("Success");
                 return;
             }
-            //Otherwise, if there's no data we give the user a list of random names from our JSON file.
-            const randomNames = functions.getRandomNames(artist_names);
-            const csv = functions.createCSV(randomNames);
-            res.attachment(`${filename}.csv`).send(csv);
-            console.log("Success");
+            //Otherwise, if there are no results, we retrieve a random name from "artist_names.json" and we use it as a parameter:
+
+            const randomName = functions.getRandomName(artist_names);
+            fetch(
+                `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${randomName}&api_key=${process.env.API_KEY}&format=json&limit=20`
+            )
+                .then((res) => res.json())
+                .then((data) => {
+                    let csv = functions.getCSV(
+                        data.results.artistmatches.artist
+                    );
+                    res.attachment(`${filename}.csv`).send(csv);
+                    console.log("Success");
+                })
+                .catch((err) => {
+                    console.log("error getting json artist", err);
+                    res.end();
+                });
         })
         .catch((err) => {
             console.log("error getting artist", err);
