@@ -1,7 +1,9 @@
 const express = require("express");
 const fetch = require("node-fetch");
 
-const secrets = require("./secrets.json"); // the API keys
+require("dotenv").config({ path: __dirname + "/.env" });
+
+/* const secrets = require("./secrets.json"); */ // the API keys
 const functions = require("./functions.js"); // useful functions
 const random_artists = require("./random_artists.json"); // random artist names
 
@@ -23,7 +25,7 @@ app.get("/api/:artist/:filename", (req, res) => {
     //Now we fetch the Last.fm API using the :artist parameter and the imported API_KEY. I decided to limit the number of results to 20.
 
     fetch(
-        `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${artist}&api_key=${secrets.API_KEY}&format=json&limit=20`
+        `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${artist}&api_key=${process.env.API_KEY}&format=json&limit=20`
     )
         .then((res) => res.json())
         .then((data) => {
@@ -34,11 +36,13 @@ app.get("/api/:artist/:filename", (req, res) => {
                 ); // filtering the retrieved data
                 const csv = functions.createCSV(artists); //building a string in CSV format
                 res.attachment(`${filename}.csv`).send(csv); // sending the CSV file to the user (download)
+                console.log("Success");
                 return;
             }
             //Otherwise, if there's no data we give the user some results from our JSON file.
             const csv = functions.createCSV(random_artists);
             res.attachment(`${filename}.csv`).send(csv);
+            console.log("Success");
         })
         .catch((err) => {
             console.log("error getting artist", err);
