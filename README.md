@@ -6,15 +6,14 @@ This Node.js application connects with the Last.fm Api :guitar: (https://www.las
 
 To build this app i used...
 
-- Node.js
-- Express
-- node-fetch
+-   Node.js
+-   Express
+-   node-fetch
 
 ## Try it!
 
 :globe_with_meridians: https://artist-search-nodejs.herokuapp.com/
 
-- Open the app in the browser.
-- To download the CSV file, add to the URL the artist name and your desired filename as parameters:
-Example: .../madonna/madona_list
-
+-   Open the app in the browser.
+-   To download the CSV file, add "/api" to the URL, and then the artist name and your desired filename:
+    Example: .../api/madonna/madona_list
