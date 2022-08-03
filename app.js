@@ -29,7 +29,7 @@ app.get("/api/:artist/:filename", (req, res) => {
     )
         .then((res) => res.json())
         .then((data) => {
-            if (data.results.artistmatches.artist) {
+            if (data.results.artistmatches.artist[0]) {
                 //If there are results, we write them in a CSV file and send everything to the user:
                 const artists = functions.filterData(
                     data.results.artistmatches.artist
