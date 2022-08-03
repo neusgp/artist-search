@@ -1,6 +1,6 @@
 # REST Api application
 
-This Node.js application connects with the Last.fm Api :guitar: (https://www.last.fm/api/show/artist.search), allows the user to search for an artist name :mag: and retreives a list of matching results in a CSV file :clipboard:. If there are no results available, the app gets a random name from a .json file (artis_names.json) and uses it to do one more search.
+This Node.js application connects with the Last.fm Api :guitar: (https://www.last.fm/api/show/artist.search), allows the user to search for an artist name :mag: and retreives a list of matching results in a CSV file :clipboard:. If there are no results available, the app gets a random name from a .json file (artist_names.json) and uses it to do one more search.
 
 # Tools
 
