@@ -12,3 +12,9 @@ To build this app i used...
 
 ## Try it!
 
+:globe_with_meridians: https://artist-search-nodejs.herokuapp.com/
+
+- Open the app in the browser.
+- To download the CSV file, add to the URL the artist name and your desired filename as parameters:
+Example: .../madonna/madona_list
+
