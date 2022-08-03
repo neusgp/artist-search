@@ -5,7 +5,7 @@ const filterData = (data) => {
             data[i].name,
             data[i].mbid,
             data[i].url,
-            data[i].image[0]["#text"],
+            data[i].image[0]["#text"], //When receiving the data from the API, I saw there are no "image" and "image_small" values, so I accessed the "images" array and I got the url for the small and medium images.
             data[i].image[1]["#text"],
         ]);
     }

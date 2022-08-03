@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 
 require("dotenv").config({ path: __dirname + "/.env" });
 
-/* const secrets = require("./secrets.json"); */ // the API keys
+/* const secrets = require("./secrets.json"); */ 
 const functions = require("./functions.js"); // useful functions
 const artist_names = require("./artist_names.json"); // random artist names
 
@@ -31,13 +31,12 @@ app.get("/api/:artist/:filename", (req, res) => {
         .then((data) => {
             if (data.results.artistmatches.artist[0]) {
                 //If there are results, we write them in a CSV file and send everything to the user:
-                let csv = functions.getCSV(data.results.artistmatches.artist);
+                let csv = functions.getCSV(data.results.artistmatches.artist); //see functions.js
                 res.attachment(`${filename}.csv`).send(csv); // sending the CSV file to the user (download)
                 console.log("Success");
                 return;
             }
-            //Otherwise, if there are no results, we retrieve a random name from "artist_names.json" and we use it as a parameter:
-
+            //Otherwise, if there are no results, we get a random name from "artist_names.json" and we use it as a parameter:
             const randomName = functions.getRandomName(artist_names);
             fetch(
                 `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${randomName}&api_key=${process.env.API_KEY}&format=json&limit=20`
@@ -64,3 +63,5 @@ app.get("/api/:artist/:filename", (req, res) => {
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`);
 });
+
+
