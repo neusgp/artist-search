@@ -19,3 +19,14 @@ module.exports.createCSV = (data) => {
     }
     return csv;
 };
+
+module.exports.getRandomNames = (artist_names) => {
+    const names = [];
+    let i = 0;
+    while (i < 20) {
+        const index = Math.floor(Math.random() * artist_names.length);
+        names.push(artist_names[index]);
+        i++;
+    }
+    return names;
+};

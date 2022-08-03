@@ -5,7 +5,7 @@ require("dotenv").config({ path: __dirname + "/.env" });
 
 /* const secrets = require("./secrets.json"); */ // the API keys
 const functions = require("./functions.js"); // useful functions
-const random_artists = require("./random_artists.json"); // random artist names
+const artist_names = require("./artist_names.json"); // random artist names
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,8 +39,9 @@ app.get("/api/:artist/:filename", (req, res) => {
                 console.log("Success");
                 return;
             }
-            //Otherwise, if there's no data we give the user some results from our JSON file.
-            const csv = functions.createCSV(random_artists);
+            //Otherwise, if there's no data we give the user a list of random names from our JSON file.
+            const randomNames = functions.getRandomNames(artist_names);
+            const csv = functions.createCSV(randomNames);
             res.attachment(`${filename}.csv`).send(csv);
             console.log("Success");
         })
